@@ -1,2 +1,0 @@
-console.log("https://pixabay.com/api/?key=33349465-f6e14a947762518aeccde2783&q=cat&image_type=photo&orientation=horizontal&safesearch=true"),console.log((async()=>{try{const a=await fetch("https://pixabay.com/api/?key=33349465-f6e14a947762518aeccde2783&q=cat&image_type=photo&orientation=horizontal&safesearch=true");return await a.json()}catch(a){console.log(a.message)}})());
-//# sourceMappingURL=index.83392551.js.map
