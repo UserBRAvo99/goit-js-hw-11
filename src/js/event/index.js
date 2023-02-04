@@ -41,13 +41,18 @@ let perPage = 40;
 let page = 1;
 export function pageCurrent(event) {
   page += 1;
+
   fetchUsersEntered(resultFormInput, page, perPage * page).then(resolve => {
     if (resolve.hits.length === 0) {
       Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
     }
+    if (page === 4) {
+      btnLoaderMore.classList.add('hidden');
+    }
     const markup = getMarkup(resolve.hits);
     addMarkupGallery(markup, galleryListEl);
+    console.log(perPage, page);
   });
 }
