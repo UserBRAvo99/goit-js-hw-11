@@ -1,10 +1,10 @@
 .header {
-  background-color: aqua;
+  background-color: #018c85;
   width: 100%;
 }
 
 .container {
-  max-width: 930px;
+  max-width: 1200px;
   padding: 0 15px;
   margin-left: auto;
   margin-right: auto;
@@ -14,14 +14,68 @@
   justify-content: center;
   min-height: 60px;
   padding: 20px 0;
+  margin-bottom: 30px;
 }
 
 .search-form__input,
-.search-form__btn {
+.search-form__btn,
+.load-more {
   border: 0;
   height: 30px;
   border-radius: 10px;
 }
+.search-form__btn,
+.load-more {
+  cursor: pointer;
+  background-color: #a6d6d4;
+  border: 1px solid#1C4C4A;
+  &:hover,
+  &:focus {
+    background-color: #1c4c4a;
+    color: white;
+  }
+}
 .search-form__input {
   padding: 10px;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+.load-more {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+
+.gallery__list {
+  list-style: none;
+  display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 40px 0;
+  margin: 0;
+}
+.photo-card {
+  width: 270px;
+  height: auto;
+  background-color: #a6d6d4;
+  border-radius: 10px;
+}
+.info {
+  display: flex;
+  font-size: small;
+  justify-content: space-around;
+}
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
 }
