@@ -37,11 +37,11 @@ export function handleInput(event) {
     addMarkupGallery(markup, galleryListEl);
   });
 }
+
 let perPage = 40;
 let page = 1;
 export function pageCurrent(event) {
   page += 1;
-
   fetchUsersEntered(resultFormInput, page, perPage * page).then(resolve => {
     if (resolve.hits.length === 0) {
       Notiflix.Notify.failure(
