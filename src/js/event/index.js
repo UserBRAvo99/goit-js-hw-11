@@ -9,7 +9,7 @@ const notiflixFailureMessage =
   'Sorry, there are no images matching your search query. Please try again.';
 const btnClassList = btnLoaderMore.classList;
 
-export function handleInput(event) {
+export async function handleInput(event) {
   event.preventDefault();
   const {
     elements: { searchQuery },
@@ -19,17 +19,14 @@ export function handleInput(event) {
 
   if (resultFormInput === '') {
     galleryListEl.innerHTML = '';
-
     Notiflix.Notify.failure(notiflixFailureMessage);
-
-    btnClassList.add('hidden');
-
+    btnLoaderMore.classList.add('hidden');
     return;
   }
-  fetchUsersEntered(resultFormInput).then(resolve => {
-    console.log(resolve.hits);
+  await fetchUsersEntered(resultFormInput).then(resolve => {
     if (resolve.hits.length === 0) {
       Notiflix.Notify.failure(notiflixFailureMessage);
+      return;
     }
     if (resolve.hits.length) {
       btnClassList.remove('hidden');
@@ -46,16 +43,23 @@ export function handleInput(event) {
 let perPage = 40;
 let page = 1;
 
-export function pageCurrent(event) {
+export async function pageCurrent(event) {
   page += 1;
-  fetchUsersEntered(resultFormInput, page, perPage * page).then(resolve => {
-    if (resolve.hits.length === 0) {
-      Notiflix.Notify.failure(notiflixFailureMessage);
+  await fetchUsersEntered(resultFormInput, page, perPage * page).then(
+    resolve => {
+      if (resolve.hits.length === 0) {
+        Notiflix.Notify.failure(notiflixFailureMessage);
+      }
+      if (page === 4) {
+        btnLoaderMore.classList.add('hidden');
+      }
+      const markup = getMarkup(resolve.hits);
+      addMarkupGallery(markup, galleryListEl);
     }
-    if (page === 4) {
-      btnLoaderMore.classList.add('hidden');
-    }
-    const markup = getMarkup(resolve.hits);
-    addMarkupGallery(markup, galleryListEl);
-  });
+  );
 }
+
+// export function pageScroll(event) {
+//   const documentRect = document.documentElement.getBoundingClientRect();
+//   console.log('bnt', documentRect.y);
+// }

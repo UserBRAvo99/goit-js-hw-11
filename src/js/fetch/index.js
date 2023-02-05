@@ -1,4 +1,5 @@
 import axios from 'axios';
+import scrollWatch from 'infinite-scroll/js/scroll-watch';
 import Notiflix from 'notiflix';
 
 const KEY = '33349465-f6e14a947762518aeccde2783';
@@ -15,7 +16,7 @@ export async function fetchUsersEntered(name, page = 1, perPage = 40) {
       `${BASE_URL}${KEY}&q=${name}&${image}&${orientation}&${safesearch}&per_page=${perPage}&page=${page}`
     );
     const result = await response.json();
-    console.log(result);
+
     return result;
   } catch (error) {
     Notiflix.Notify.failure(error.message);
