@@ -5,6 +5,9 @@ import Notiflix from 'notiflix';
 import { btnLoaderMore, galleryListEl } from '../refs';
 
 let resultFormInput = '';
+const notiflixFailureMessage =
+  'Sorry, there are no images matching your search query. Please try again.';
+const notiflixSuccessMessage = 'Hooray! We found &&& images!';
 
 export function handleInput(event) {
   event.preventDefault();
@@ -13,26 +16,24 @@ export function handleInput(event) {
   } = event.currentTarget;
 
   resultFormInput = searchQuery.value.trim();
-  console.log(resultFormInput);
 
   if (resultFormInput === '') {
     galleryListEl.innerHTML = '';
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
+
+    Notiflix.Notify.failure(notiflixFailureMessage);
+
     btnLoaderMore.classList.add('hidden');
+
     return;
   }
   fetchUsersEntered(resultFormInput).then(resolve => {
+    console.log(resolve.hits);
     if (resolve.hits.length === 0) {
-      Notiflix.Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
+      Notiflix.Notify.failure(notiflixFailureMessage);
     }
     if (resolve.hits.length) {
       btnLoaderMore.classList.remove('hidden');
     }
-
     const markup = getMarkup(resolve.hits);
     addMarkupGallery(markup, galleryListEl);
   });
@@ -40,19 +41,17 @@ export function handleInput(event) {
 
 let perPage = 40;
 let page = 1;
+
 export function pageCurrent(event) {
   page += 1;
   fetchUsersEntered(resultFormInput, page, perPage * page).then(resolve => {
     if (resolve.hits.length === 0) {
-      Notiflix.Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
+      Notiflix.Notify.failure(notiflixFailureMessage);
     }
     if (page === 4) {
       btnLoaderMore.classList.add('hidden');
     }
     const markup = getMarkup(resolve.hits);
     addMarkupGallery(markup, galleryListEl);
-    console.log(perPage, page);
   });
 }
