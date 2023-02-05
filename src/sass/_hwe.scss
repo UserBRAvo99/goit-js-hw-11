@@ -1,4 +1,5 @@
 .header {
+  position: fixed;
   background-color: #018c85;
   width: 100%;
 }
@@ -14,7 +15,6 @@
   justify-content: center;
   min-height: 60px;
   padding: 20px 0;
-  margin-bottom: 30px;
 }
 
 .search-form__input,
@@ -57,8 +57,9 @@
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 10px;
-  padding: 40px 0;
+  padding-top: 90px;
   margin: 0;
+  margin-bottom: 40px;
 }
 .photo-card {
   width: 270px;

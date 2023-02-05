@@ -7,7 +7,7 @@ import { btnLoaderMore, galleryListEl } from '../refs';
 let resultFormInput = '';
 const notiflixFailureMessage =
   'Sorry, there are no images matching your search query. Please try again.';
-const notiflixSuccessMessage = 'Hooray! We found &&& images!';
+const btnClassList = btnLoaderMore.classList;
 
 export function handleInput(event) {
   event.preventDefault();
@@ -22,7 +22,7 @@ export function handleInput(event) {
 
     Notiflix.Notify.failure(notiflixFailureMessage);
 
-    btnLoaderMore.classList.add('hidden');
+    btnClassList.add('hidden');
 
     return;
   }
@@ -32,8 +32,12 @@ export function handleInput(event) {
       Notiflix.Notify.failure(notiflixFailureMessage);
     }
     if (resolve.hits.length) {
-      btnLoaderMore.classList.remove('hidden');
+      btnClassList.remove('hidden');
     }
+    if (resolve.totalHits < perPage) {
+      btnClassList.add('hidden');
+    }
+    Notiflix.Notify.success(`Hooray! We found ${resolve.totalHits} images!`);
     const markup = getMarkup(resolve.hits);
     addMarkupGallery(markup, galleryListEl);
   });
