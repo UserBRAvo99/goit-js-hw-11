@@ -11,14 +11,22 @@ const safesearch = 'safesearch=true';
 // const page = 1;
 
 export async function fetchUsersEntered(name, page = 1, perPage = 40) {
-  try {
-    const response = await fetch(
-      `${BASE_URL}${KEY}&q=${name}&${image}&${orientation}&${safesearch}&per_page=${perPage}&page=${page}`
-    );
-    const result = await response.json();
-
-    return result;
-  } catch (error) {
-    Notiflix.Notify.failure(error.message);
-  }
+  const response = await fetch(
+    `${BASE_URL}${KEY}&q=${name}&${image}&${orientation}&${safesearch}&per_page=${perPage}&page=${page}`
+  );
+  const result = await response.json();
+  return result;
 }
+
+// export async function fetchUsersEntered(name, page = 1, perPage = 40) {
+//   try {
+//     const response = await fetch(
+//       `${BASE_URL}${KEY}&q=${name}&${image}&${orientation}&${safesearch}&per_page=${perPage}&page=${page}`
+//     );
+//     const result = await response.json();
+
+//     return result;
+//   } catch (error) {
+//     Notiflix.Notify.failure(error.message);
+//   }
+// }
