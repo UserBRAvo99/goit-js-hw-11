@@ -23,7 +23,7 @@ export async function handleInput(event) {
     btnLoaderMore.classList.add('hidden');
     return;
   }
-  console.log(fetchUsersEntered({ resultFormInput }));
+
   await fetchUsersEntered(resultFormInput).then(resolve => {
     if (resolve.hits.length === 0) {
       Notiflix.Notify.failure(notiflixFailureMessage);
