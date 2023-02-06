@@ -61,6 +61,8 @@ export async function pageCurrent(event) {
       }
       if (page === 4) {
         btnLoaderMore.classList.add('hidden');
+        page = 1;
+        return;
       }
       // if ((page - 1) * 40 >= resolve.totalHits) {
       //   btnLoaderMore.classList.add('hidden');
