@@ -1,3 +1,3 @@
 export function addMarkupGallery(element, place) {
-  place.innerHTML = element;
+  place.insertAdjacentHTML('beforeend', element);
 }

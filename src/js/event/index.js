@@ -28,10 +28,12 @@ export async function handleInput(event) {
     btnLoaderMore.classList.add('hidden');
     return;
   }
-
+  galleryListEl.innerHTML = '';
+  page = 1;
   await fetchUsersEntered(resultFormInput).then(resolve => {
     if (resolve.hits.length === 0) {
       Notiflix.Notify.failure(notiflixFailureMessage);
+      btnClassList.add('hidden');
       return;
     }
     if (resolve.hits.length) {
@@ -39,11 +41,14 @@ export async function handleInput(event) {
     }
     if (resolve.totalHits < perPage) {
       btnClassList.add('hidden');
+      Notiflix.Notify.failure(
+        "We're sorry, but you've reached the end of search results."
+      );
     }
     Notiflix.Notify.success(`Hooray! We found ${resolve.totalHits} images!`);
     const markup = getMarkup(resolve.hits);
     addMarkupGallery(markup, galleryListEl);
-
+    page += 1;
     // if (galleryListEl.lastElementChild) {
     //   infiniteScroll.observe(galleryListEl.lastElementChild);
     // }
@@ -53,22 +58,21 @@ export async function handleInput(event) {
 }
 
 export async function pageCurrent(event) {
-  page += 1;
-  await fetchUsersEntered(resultFormInput, page, perPage * page)
+  await fetchUsersEntered(resultFormInput, page, perPage)
     .then(resolve => {
+      page += 1;
       if (resolve.hits.length === 0) {
         Notiflix.Notify.failure(notiflixFailureMessage);
       }
-      if (page === 4) {
+
+      if ((page - 1) * 40 >= resolve.totalHits) {
         btnLoaderMore.classList.add('hidden');
-        page = 1;
-        return;
+        Notiflix.Notify.failure(
+          "We're sorry, but you've reached the end of search results."
+        );
+        // infiniteScroll.unobserve(galleryListEl.lastElementChild);
+        // return;
       }
-      // if ((page - 1) * 40 >= resolve.totalHits) {
-      //   btnLoaderMore.classList.add('hidden');
-      //   infiniteScroll.unobserve(galleryListEl.lastElementChild);
-      //   return;
-      // }
       const markup = getMarkup(resolve.hits);
       addMarkupGallery(markup, galleryListEl);
 
