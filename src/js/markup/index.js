@@ -11,7 +11,7 @@ export function getMarkup(item) {
         downloads,
       }) => {
         return `<li class="photo-card">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" width="270" height="180" />
+        <a class="photo-card__link" href="${largeImageURL}"><img width="270" height="180" class="photo-card__image" src="${webformatURL}" alt="${tags}" loading="lazy"/></a>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>${likes}
