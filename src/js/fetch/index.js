@@ -1,47 +1,20 @@
+// підключаємо бібліотеку/пакет
 import axios from 'axios';
 
+// визначаємо базовий шлях
 axios.defaults.baseURL = 'https://pixabay.com/api/';
+// глобальні змінні для формування запиту
 const KEY = '33349465-f6e14a947762518aeccde2783';
 const image = 'image_type=photo';
 const orientation = 'orientation=horizontal';
 const safesearch = 'safesearch=true';
 
+// визначаємо асинхронну функцію fetchUsersEntered за допомогою async
 export async function fetchUsersEntered(name, page = 1, perPage = 40) {
+  // визначаєми динамічний результат, бібліотека axios під капотом має fetch
   const response = await axios.get(
     `?key=${KEY}&q=${name}&${image}&${orientation}&${safesearch}&per_page=${perPage}&page=${page}`
   );
+  // повертаємо результат, обов'язково вказати data
   return response.data;
 }
-
-// const KEY = '33349465-f6e14a947762518aeccde2783';
-// const BASE_URL = 'https://pixabay.com/api/?key=';
-// const image = 'image_type=photo';
-// const orientation = 'orientation=horizontal';
-// const safesearch = 'safesearch=true';
-
-// export async function fetchUsersEntered(name, page = 1, perPage = 40) {
-//   const response = await fetch(
-//     `${BASE_URL}${KEY}&q=${name}&${image}&${orientation}&${safesearch}&per_page=${perPage}&page=${page}`
-//   );
-//   const result = await response.json();
-//   return result;
-// }
-
-// const KEY = '33349465-f6e14a947762518aeccde2783';
-// const BASE_URL = 'https://pixabay.com/api/?key=';
-// const image = 'image_type=photo';
-// const orientation = 'orientation=horizontal';
-// const safesearch = 'safesearch=true';
-
-// export async function fetchUsersEntered(name, page = 1, perPage = 40) {
-//   try {
-//     const response = await fetch(
-//       `${BASE_URL}${KEY}&q=${name}&${image}&${orientation}&${safesearch}&per_page=${perPage}&page=${page}`
-//     );
-//     const result = await response.json();
-
-//     return result;
-//   } catch (error) {
-//     Notiflix.Notify.failure(error.message);
-//   }
-// }

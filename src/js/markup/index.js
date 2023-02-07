@@ -1,4 +1,7 @@
+// пишемо розмітку на кожну картинку, на кожній ітерації метод map буде додавати елемент масиву розмітки з динамічними значеннями.
+// далі join з'єднуємо елементи масиву в один рядок
 export function getMarkup(item) {
+  // ОБОВ'ЯЗКОВО повертаємо
   return item
     .map(
       ({
@@ -10,6 +13,7 @@ export function getMarkup(item) {
         comments,
         downloads,
       }) => {
+        // ОБОВ'ЯЗКОВО повертаємо розмітку
         return `<li class="photo-card">
         <a class="photo-card__link" href="${largeImageURL}"><img width="270" height="180" class="photo-card__image" src="${webformatURL}" alt="${tags}" loading="lazy"/></a>
   <div class="info">
@@ -32,5 +36,6 @@ export function getMarkup(item) {
     .join('');
 }
 
+// Для лайтбоксу
 // webformatURL - посилання на маленьке зображення для списку карток.
 // largeImageURL - посилання на велике зображення.
