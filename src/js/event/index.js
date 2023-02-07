@@ -16,6 +16,9 @@ const btnClassList = btnLoaderMore.classList;
 let perPage = 40;
 let page = 1;
 
+// оголошуємо SimpleLightbox та передаємо значення, тобто в якому блоці буде працювати лайтбокс(блок і посилання). Дивитись документацію
+const modal = new SimpleLightbox('.gallery a');
+
 // callbeck функція для події форми submit
 // вказуємо async для визначення що це асинхронна функція
 export async function handleInput(event) {
@@ -61,16 +64,14 @@ export async function handleInput(event) {
     Notiflix.Notify.success(`Hooray! We found ${resolve.totalHits} images!`);
     const markup = getMarkup(resolve.hits);
     addMarkupGallery(markup, galleryListEl);
+    // оновлюємо!
+    modal.refresh();
     page += 1;
     // if (galleryListEl.lastElementChild) {
     //   infiniteScroll.observe(galleryListEl.lastElementChild);
     // }
-
-    // оголошуємо SimpleLightbox та передаємо значення, тобто в якому блоці буде працювати лайтбокс(блок і посилання). Дивитись документацію
-    const modal = new SimpleLightbox('.gallery a');
   });
 }
-
 // callbeck функція для події натискання на кнопку
 // робимо функцію асинхронною async
 export async function pageCurrent(event) {
@@ -95,6 +96,8 @@ export async function pageCurrent(event) {
       // якщо все ок, рендеромо розмітку далі та додаємо кнопку - завантажити ще
       const markup = getMarkup(resolve.hits);
       addMarkupGallery(markup, galleryListEl);
+      // оновлюємо!
+      modal.refresh();
 
       // код для скролла!!!
       // if (galleryListEl.lastElementChild) {
