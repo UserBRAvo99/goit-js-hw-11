@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // визначаємо базовий шлях
 axios.defaults.baseURL = 'https://pixabay.com/api/';
-// глобальні змінні для формування запиту
+// глобальні змінні для формування запиту(можна створити об'єкт для пагінації, щоб уникнути створення безлічі змінних)
 const KEY = '33349465-f6e14a947762518aeccde2783';
 const image = 'image_type=photo';
 const orientation = 'orientation=horizontal';

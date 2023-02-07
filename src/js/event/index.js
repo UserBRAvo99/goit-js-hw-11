@@ -17,6 +17,7 @@ let perPage = 40;
 let page = 1;
 
 // оголошуємо SimpleLightbox та передаємо значення, тобто в якому блоці буде працювати лайтбокс(блок і посилання). Дивитись документацію
+// для того щоб лайт бокс працював на всих картинках(тобто на нових картинках які приходять з кожним запитом(лоад мор або інфініті скрол)). записуємо в змінну
 const modal = new SimpleLightbox('.gallery a');
 
 // callbeck функція для події форми submit
@@ -64,14 +65,16 @@ export async function handleInput(event) {
     Notiflix.Notify.success(`Hooray! We found ${resolve.totalHits} images!`);
     const markup = getMarkup(resolve.hits);
     addMarkupGallery(markup, galleryListEl);
-    // оновлюємо!
+    // оновлюємо (в данному випадку лайт бокс, щоб він спрацьовував на нових картинках а не тільки на першій партії пошуку)
     modal.refresh();
+    // додаємо +1 сторінку
     page += 1;
     // if (galleryListEl.lastElementChild) {
     //   infiniteScroll.observe(galleryListEl.lastElementChild);
     // }
   });
 }
+
 // callbeck функція для події натискання на кнопку
 // робимо функцію асинхронною async
 export async function pageCurrent(event) {
@@ -96,7 +99,7 @@ export async function pageCurrent(event) {
       // якщо все ок, рендеромо розмітку далі та додаємо кнопку - завантажити ще
       const markup = getMarkup(resolve.hits);
       addMarkupGallery(markup, galleryListEl);
-      // оновлюємо!
+      // оновлюємо (в данному випадку лайт бокс, щоб він спрацьовував на нових картинках а не тільки на першій партії пошуку)
       modal.refresh();
 
       // код для скролла!!!
@@ -105,11 +108,12 @@ export async function pageCurrent(event) {
       // }
     })
     .catch(error => {
+      // в кетч виводимо помилку
       console.log(error.message);
     });
 }
 
-// функція infiniteScroll (безкінечеий скролл)
+// функція infiniteScroll (безкінечеий скролл), закоментований код з підписами є у  callback функціяї кнопки лоад мор
 // const infiniteScroll = new IntersectionObserver(
 //   ([entry], obsorver) => {
 //     if (entry.isIntersecting) {
